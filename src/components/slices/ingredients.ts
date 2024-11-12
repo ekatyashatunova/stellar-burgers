@@ -5,7 +5,7 @@ import { TIngredient } from '@utils-types';
 export interface TIngredientsData {
   ingredients: TIngredient[];
   loading: boolean;
-  error: string | null
+  error: string | null;
 }
 const initialState: TIngredientsData = {
   ingredients: [],
@@ -23,10 +23,8 @@ export const ingredientsSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    selectIngredients: (state) => 
-      state.ingredients,
-    selectLoading: (state) => 
-     state.loading
+    selectIngredients: (state) => state.ingredients,
+    selectLoading: (state) => state.loading
   },
   extraReducers: (builder) => {
     builder
@@ -35,7 +33,7 @@ export const ingredientsSlice = createSlice({
       })
       .addCase(fetchGetIngredients.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message  || 'ППЦ ОШИБКА';
+        state.error = action.error.message || 'ППЦ ОШИБКА';
       })
       .addCase(fetchGetIngredients.fulfilled, (state, action) => {
         state.loading = false;

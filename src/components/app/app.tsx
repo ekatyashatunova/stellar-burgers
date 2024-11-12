@@ -17,7 +17,7 @@ import { fetchGetIngredients } from '../slices/ingredients';
 
 import { AppHeader, Modal } from '@components';
 import { OrderInfo, IngredientDetails } from '@components';
-import { useDispatch } from 'src/services/store'; 
+import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 
 /*import { ProtectedRoute } from '../protected-route/ProtectedRoute';*/
@@ -26,11 +26,9 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => { 
-    dispatch(fetchGetIngredients()); 
-     
-  }, [dispatch]); 
-
+  useEffect(() => {
+    dispatch(fetchGetIngredients());
+  }, [dispatch]);
 
   const handleCloseModal = () => {
     navigate(-1);
@@ -104,7 +102,7 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title='Детали заказа' onClose={handleCloseModal}>
+              <Modal title='' onClose={handleCloseModal}>
                 <OrderInfo />
               </Modal>
             }
@@ -120,7 +118,7 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title='Детали заказа' onClose={handleCloseModal}>
+              <Modal title='' onClose={handleCloseModal}>
                 <OrderInfo />
               </Modal>
             }
