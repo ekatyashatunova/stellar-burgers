@@ -1,47 +1,48 @@
-import { getIngredientsApi } from './../../utils/burger-api';
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TIngredient} from '@utils-types';
+import { getIngredientsApi } from '../../utils/burger-api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TIngredient } from '@utils-types';
 
 export interface TIngredientsData {
-    ingredients: TIngredient[],
-    loading: boolean,
+  ingredients: TIngredient[];
+  loading: boolean;
+  error: string | null
 }
-
 const initialState: TIngredientsData = {
-    ingredients: [],
-    loading: false,
-}
+  ingredients: [],
+  loading: false,
+  error: null
+};
 
-const fetchGetIngredients = createAsyncThunk('ingredients/fetchGetIngredients', async () => {
-    const response = await getIngredientsApi();
-    return response
-})
+export const fetchGetIngredients = createAsyncThunk(
+  'ingredients/fetchGetIngredients',
+  getIngredientsApi
+);
 
 export const ingredientsSlice = createSlice({
-    name: '',
-    initialState,
-    reducers: {},
-    selectors: {
-        selectIngredients: (ingredientsState) => {
-            return ingredientsState.ingredients
-        },
-        selectLoading: (ingredientsState) => {
-            return ingredientsState.loading
-        }
-    },
-    extraReducers: (builder) => {
-        builder
-        .addCase(fetchGetIngredients.pending, (ingredientsState)=> {
-            ingredientsState.loading = true;
-        })
-        .addCase(fetchGetIngredients.rejected, (ingredientsState, action) => {
-            ingredientsState.loading = false;
-        })
-        .addCase(fetchGetIngredients.fulfilled, (ingredientsState, action) => {
-            ingredientsState.loading = false;
-            ingredientsState.ingredients = action.payload
-        })
-    }
-})
+  name: 'ingredients',
+  initialState,
+  reducers: {},
+  selectors: {
+    selectIngredients: (state) => 
+      state.ingredients,
+    selectLoading: (state) => 
+     state.loading
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchGetIngredients.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchGetIngredients.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message  || 'ППЦ ОШИБКА';
+      })
+      .addCase(fetchGetIngredients.fulfilled, (state, action) => {
+        state.loading = false;
+        state.ingredients = action.payload;
+      });
+  }
+});
 
-/*export const {selectIngredients, selectLoading} = ingredientsSlice.selectors*/
+export const { selectIngredients, selectLoading } = ingredientsSlice.selectors;
+export const IngredientsReducer = ingredientsSlice.reducer;

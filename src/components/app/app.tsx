@@ -12,16 +12,26 @@ import {
 import '../../index.css';
 import styles from './app.module.css';
 
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
+import { useLocation, useNavigate, Routes, Route } from 'react-router-dom';
+import { fetchGetIngredients } from '../slices/ingredients';
 
 import { AppHeader, Modal } from '@components';
 import { OrderInfo, IngredientDetails } from '@components';
+import { useDispatch } from 'src/services/store'; 
+import { useEffect } from 'react';
 
 /*import { ProtectedRoute } from '../protected-route/ProtectedRoute';*/
 
 const App = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => { 
+    dispatch(fetchGetIngredients()); 
+     
+  }, [dispatch]); 
+
+
   const handleCloseModal = () => {
     navigate(-1);
   };
