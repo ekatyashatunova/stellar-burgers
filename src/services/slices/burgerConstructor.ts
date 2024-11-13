@@ -1,4 +1,4 @@
-import { TConstructorIngredient } from '@utils-types';
+import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
 
 export interface TConstructorBurgerData {
@@ -23,7 +23,7 @@ export const burgerConstructorSlice = createSlice({
           state.ingredients.push(action.payload);
         }
       },
-      prepare: (ingredient: TConstructorIngredient) => {
+      prepare: (ingredient: TIngredient) => {
         const id = nanoid();
         return { payload: { ...ingredient, id } };
       }

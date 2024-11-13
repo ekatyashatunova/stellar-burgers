@@ -13,7 +13,7 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { useLocation, useNavigate, Routes, Route } from 'react-router-dom';
-import { fetchGetIngredients } from '../slices/ingredients';
+import { fetchGetIngredients } from '../../services/slices/ingredients';
 
 import { AppHeader, Modal } from '@components';
 import { OrderInfo, IngredientDetails } from '@components';
