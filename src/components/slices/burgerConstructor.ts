@@ -1,5 +1,5 @@
-import { TConstructorIngredient, TIngredient } from '@utils-types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TConstructorIngredient } from '@utils-types';
+import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
 
 export interface TConstructorBurgerData {
   bun: TConstructorIngredient | null;
@@ -15,11 +15,18 @@ export const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
   reducers: {
-    addToConstructor: (
-      state,
-      action: PayloadAction<TConstructorIngredient>
-    ) => {
-      state.ingredients.push(action.payload);
+    addToConstructor: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+        if (action.payload.type === 'bun') {
+          state.bun = action.payload;
+        } else {
+          state.ingredients.push(action.payload);
+        }
+      },
+      prepare: (ingredient: TConstructorIngredient) => {
+        const id = nanoid();
+        return { payload: { ...ingredient, id } };
+      }
     },
     deleteFromConstructor: (state, action: PayloadAction<string>) => {
       state.ingredients = state.ingredients.filter(
@@ -28,12 +35,15 @@ export const burgerConstructorSlice = createSlice({
     },
     resetConstructor: (state) => {
       state.ingredients = [];
+      state.bun = null;
     }
   },
   selectors: {
-    selectConstructor: (state) => state.ingredients
+    selectIngredient: (state) => state.ingredients,
+    selectBun: (state) => state.bun
   }
 });
 
-export const { selectConstructor } = burgerConstructorSlice.selectors;
+export const { selectIngredient, selectBun } = burgerConstructorSlice.selectors;
 export const ConstructorReducer = burgerConstructorSlice.reducer;
+export const {addToConstructor,deleteFromConstructor, resetConstructor } = burgerConstructorSlice.actions
