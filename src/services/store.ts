@@ -3,6 +3,7 @@ import { IngredientsReducer } from './slices/ingredients';
 import { combineReducers } from '@reduxjs/toolkit';
 import { ConstructorReducer } from '../services/slices/burgerConstructor';
 import { FeedReducer } from '../services/slices/feed';
+import { authUserReducer } from '../services/slices/authUser';
 
 import {
   TypedUseSelectorHook,
@@ -13,7 +14,8 @@ import {
 const rootReducer = combineReducers({
   ingredients: IngredientsReducer,
   burgerConstructor: ConstructorReducer,
-  feeds: FeedReducer
+  feeds: FeedReducer,
+  user: authUserReducer
 });
 
 const store = configureStore({
