@@ -24,14 +24,14 @@ import { useEffect } from 'react';
 
 const App = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigation = useNavigate();
 
   useEffect(() => {
     dispatch(fetchGetIngredients());
   }, [dispatch]);
 
   const handleCloseModal = () => {
-    navigate(-1);
+    navigation(-1);
   };
 
   const location = useLocation();

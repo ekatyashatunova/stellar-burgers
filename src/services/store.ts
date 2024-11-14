@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { IngredientsReducer } from './slices/ingredients';
 import { combineReducers } from '@reduxjs/toolkit';
 import { ConstructorReducer } from '../services/slices/burgerConstructor';
-import { FeedReducer } from './slices/feed';
+import { FeedReducer } from '../services/slices/feed';
 
 import {
   TypedUseSelectorHook,
