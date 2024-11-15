@@ -70,9 +70,42 @@ export const logout = createAsyncThunk('user/logout', async () => {
 export const authUserSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    authChecked: (state) => {
+      state.isAuthenticated = true;
+    },
+    userLogout: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.pending, (state) => {})
+      .addCase(update.pending, (state) => {})
+      .addCase(register.pending, (state) => {})
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(update.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(login.rejected, (state, action) => {})
+      .addCase(update.rejected, (state, action) => {})
+      .addCase(register.rejected, (state, action) => {});
+  },
   selectors: {}
 });
 
 export const {} = authUserSlice.selectors;
+export const { authChecked, userLogout } = authUserSlice.actions;
 export const authUserReducer = authUserSlice.reducer;

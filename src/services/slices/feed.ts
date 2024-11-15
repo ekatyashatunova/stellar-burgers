@@ -50,4 +50,4 @@ export const feedSlice = createSlice({
 
 export const { selectFeed, selectTotal, selectTotalToday, selectLoading } =
   feedSlice.selectors;
-export const FeedReducer = feedSlice.reducer;
+export const feedReducer = feedSlice.reducer;

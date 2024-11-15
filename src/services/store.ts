@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { IngredientsReducer } from './slices/ingredients';
+import { ingredientsReducer } from './slices/ingredients';
 import { combineReducers } from '@reduxjs/toolkit';
-import { ConstructorReducer } from '../services/slices/burgerConstructor';
-import { FeedReducer } from '../services/slices/feed';
+import { constructorReducer } from '../services/slices/burgerConstructor';
+import { feedReducer } from '../services/slices/feed';
 import { authUserReducer } from '../services/slices/authUser';
+import { orderReducer } from './slices/orders';
 
 import {
   TypedUseSelectorHook,
@@ -12,10 +13,11 @@ import {
 } from 'react-redux';
 
 const rootReducer = combineReducers({
-  ingredients: IngredientsReducer,
-  burgerConstructor: ConstructorReducer,
-  feeds: FeedReducer,
-  user: authUserReducer
+  ingredients: ingredientsReducer,
+  burgerConstructor: constructorReducer,
+  feeds: feedReducer,
+  user: authUserReducer,
+  orders: orderReducer
 });
 
 const store = configureStore({

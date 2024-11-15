@@ -35,12 +35,12 @@ const App = () => {
   };
 
   const location = useLocation();
-  const backgroundLocation = location.state?.backgroundLocation;
+  const background = location.state?.background;
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes location={backgroundLocation || location}>
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route
@@ -97,7 +97,7 @@ const App = () => {
         <Route path='/profile/orders/:number' element={<OrderInfo />} />
       </Routes>
 
-      {backgroundLocation && (
+      {background && (
         <Routes>
           <Route
             path='/feed/:number'
@@ -110,7 +110,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title='Детали ингредиента' onClose={handleCloseModal}>
+              <Modal title={'Детали ингредиента'} onClose={handleCloseModal}>
                 <IngredientDetails />
               </Modal>
             }
