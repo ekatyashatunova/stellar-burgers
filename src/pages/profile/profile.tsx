@@ -6,11 +6,11 @@ import { selectUser, update } from '../../services/slices/authUser';
 export const Profile: FC = () => {
   /** TODO: взять переменную из стора */
   const user = useSelector(selectUser);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [formValue, setFormValue] = useState({
-    name: user?.name,
-    email: user?.email,
+    name: user?.name || '',
+    email: user?.email || '',
     password: ''
   });
 
@@ -35,8 +35,8 @@ export const Profile: FC = () => {
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
     setFormValue({
-      name: user?.name,
-      email: user?.email,
+      name: user?.name || '',
+      email: user?.email || '',
       password: ''
     });
   };

@@ -14,7 +14,7 @@ import styles from './app.module.css';
 
 import { useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import { fetchGetIngredients } from '../../services/slices/ingredients';
-import { getUser } from '../../services/slices/authUser';
+import { getUser, authChecked } from '../../services/slices/authUser';
 
 import { AppHeader, Modal } from '@components';
 import { OrderInfo, IngredientDetails } from '@components';
@@ -28,16 +28,12 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchGetIngredients());
+    /*dispatch(getUser());*/
   }, [dispatch]);
 
   const handleCloseModal = () => {
     navigation(-1);
   };
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
-  
 
   const location = useLocation();
   const background = location.state?.background;

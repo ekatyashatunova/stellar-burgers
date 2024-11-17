@@ -1,0 +1,50 @@
+import { TOrder } from '../../utils/types';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { orderBurgerApi } from '../../utils/burger-api';
+
+export interface TNewOrder {
+  order: TOrder | null;
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: TNewOrder = {
+  order: null,
+  loading: false,
+  error: null
+};
+
+export const newOrder = createAsyncThunk(
+  'order/newOrder',
+  async (data: string[]) => {
+    const order = await orderBurgerApi(data);
+    return order;
+  }
+);
+
+export const newOrderSlice = createSlice({
+  name: 'newOrder',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(newOrder.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(newOrder.fulfilled, (state, action) => {
+        state.loading = false;
+        state.order = action.payload.order;
+      })
+      .addCase(newOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка при создании заказа';
+      });
+  },
+  selectors: {
+    selectOrder: (state) => state.order
+  }
+});
+
+export const { selectOrder } = newOrderSlice.selectors;
+export const newOrderReducer = newOrderSlice.reducer;

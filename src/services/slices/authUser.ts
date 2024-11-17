@@ -60,13 +60,6 @@ export const update = createAsyncThunk(
   }
 );
 
-/*export const resetPassword = createAsyncThunk(
-  'user/resetPassword',
-  async (data: { password: string; token: string }) => {
-    await forgotPasswordApi(email);
-  }
-);*/
-
 export const logout = createAsyncThunk('user/logout', async () => {
   await logoutApi();
   deleteCookie('accessToken');
@@ -125,9 +118,7 @@ export const authUserSlice = createSlice({
         state.isAuthenticated = false;
         state.loading = false;
       })
-      .addCase(getUser.fulfilled, (state, action) => {
-
-      })
+      .addCase(getUser.fulfilled, (state, action) => {})
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Ошибка входа';
@@ -147,7 +138,7 @@ export const authUserSlice = createSlice({
       .addCase(getUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Ошибка получения пользователя';
-      })
+      });
   },
   selectors: {
     selectUser: (state) => state.user,
