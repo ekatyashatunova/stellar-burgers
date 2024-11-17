@@ -14,7 +14,7 @@ import styles from './app.module.css';
 
 import { useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import { fetchGetIngredients } from '../../services/slices/ingredients';
-import { getUser, authChecked } from '../../services/slices/authUser';
+import { getUser } from '../../services/slices/authUser';
 
 import { AppHeader, Modal } from '@components';
 import { OrderInfo, IngredientDetails } from '@components';
@@ -26,9 +26,24 @@ const App = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(fetchGetIngredients());
-    /*dispatch(getUser());*/
+    dispatch(getUser());
+  }, []);*/
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await Promise.all([
+          dispatch(fetchGetIngredients()).unwrap(),
+          dispatch(getUser()).unwrap()
+        ]);
+      } catch (error) {
+        console.error('Ошибка при получении данных:', error);
+      }
+    };
+
+    fetchData();
   }, [dispatch]);
 
   const handleCloseModal = () => {

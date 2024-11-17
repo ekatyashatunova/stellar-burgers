@@ -3,8 +3,6 @@ import { TUser } from '@utils-types';
 import {
   loginUserApi,
   registerUserApi,
-  forgotPasswordApi,
-  resetPasswordApi,
   getUserApi,
   updateUserApi,
   logoutApi,
