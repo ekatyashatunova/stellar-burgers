@@ -11,11 +11,13 @@ import {
   TLoginData,
   TRegisterData
 } from '../../utils/burger-api';
-import { setCookie, deleteCookie, getCookie } from '../../utils/cookie';
+import { setCookie, deleteCookie } from '../../utils/cookie';
 
 export interface TUserData {
   user: TUser | null;
   isAuthenticated: boolean;
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: TUserData = {
@@ -23,11 +25,15 @@ const initialState: TUserData = {
     email: '',
     name: ''
   },
-  isAuthenticated: false
+  isAuthenticated: false,
+  loading: false,
+  error: null
 };
 
+export const getUser = createAsyncThunk('user/getUser', getUserApi);
+
 export const register = createAsyncThunk(
-  'user/registerUser',
+  'user/register',
   async (userRegister: TRegisterData) => {
     const data = await registerUserApi(userRegister);
     setCookie('accessToken', data.accessToken);
@@ -81,31 +87,74 @@ export const authUserSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {})
-      .addCase(update.pending, (state) => {})
-      .addCase(register.pending, (state) => {})
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(update.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(register.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthenticated = true;
+        state.loading = false;
       })
       .addCase(update.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.loading = false;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthenticated = true;
+        state.loading = false;
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.isAuthenticated = false;
+        state.loading = false;
       })
-      .addCase(login.rejected, (state, action) => {})
-      .addCase(update.rejected, (state, action) => {})
-      .addCase(register.rejected, (state, action) => {});
+      .addCase(getUser.fulfilled, (state, action) => {
+
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка входа';
+      })
+      .addCase(update.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка обновления';
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка регистрации';
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка выхода';
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка получения пользователя';
+      })
   },
-  selectors: {}
+  selectors: {
+    selectUser: (state) => state.user,
+    selectIsAuthenticated: (state) => state.isAuthenticated
+  }
 });
 
-export const {} = authUserSlice.selectors;
+export const { selectUser, selectIsAuthenticated } = authUserSlice.selectors;
 export const { authChecked, userLogout } = authUserSlice.actions;
 export const authUserReducer = authUserSlice.reducer;
