@@ -18,9 +18,9 @@ export const ProtectedRoute = ({
 }: ProtectedRouteProps) => {
   const location = useLocation();
   const user = useSelector(selectUser);
-  const isAuthChecked = useSelector(selectIsAuthenticated);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  if (!isAuthChecked) {
+  if (!isAuthenticated) {
     return <Preloader />;
   }
 

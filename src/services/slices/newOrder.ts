@@ -42,9 +42,10 @@ export const newOrderSlice = createSlice({
       });
   },
   selectors: {
-    selectNewOrder: (state) => state.order
+    selectNewOrder: (state) => state.order,
+    selectLoading: (state) => state.loading
   }
 });
 
-export const { selectNewOrder } = newOrderSlice.selectors;
+export const { selectNewOrder, selectLoading } = newOrderSlice.selectors;
 export const newOrderReducer = newOrderSlice.reducer;

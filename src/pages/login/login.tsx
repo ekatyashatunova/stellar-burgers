@@ -9,8 +9,8 @@ export const Login: FC = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e: SyntheticEvent) => {
-    dispatch(login({ email: email, password: password }));
     e.preventDefault();
+    /* dispatch(login({ email: email, password: password }));*/
   };
 
   return (

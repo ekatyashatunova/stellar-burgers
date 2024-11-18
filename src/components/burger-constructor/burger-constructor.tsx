@@ -6,23 +6,44 @@ import {
   selectBun,
   selectIngredient
 } from '../../services/slices/burgerConstructor';
+import {
+  selectLoading,
+  selectNewOrder,
+  newOrder
+} from '../../services/slices/newOrder';
+import { getUser } from '../../services/slices/authUser';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const bun = useSelector(selectBun);
   const ingredients = useSelector(selectIngredient);
+  const order = useSelector(selectNewOrder);
+  const loading = useSelector(selectLoading);
+  const user = useSelector(getUser);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const constructorItems = {
     bun: bun,
     ingredients: ingredients
   };
 
-  const orderRequest = false;
+  const orderRequest = loading;
 
-  const orderModalData = null;
+  const orderModalData = order;
 
   const onOrderClick = () => {
+    if (!user) {
+      navigate('/login');
+    }
     if (!constructorItems.bun || orderRequest) return;
+    /*const ingredientIds = [
+      constructorItems.bun._id,
+      ...constructorItems.ingredients.map((ingredient) => ingredient._id)
+    ];*/
+    /*dispatch(newOrder())*/
   };
   const closeOrderModal = () => {};
 

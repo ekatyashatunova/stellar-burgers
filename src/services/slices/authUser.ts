@@ -116,7 +116,11 @@ export const authUserSlice = createSlice({
         state.isAuthenticated = false;
         state.loading = false;
       })
-      .addCase(getUser.fulfilled, (state, action) => {})
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.isAuthenticated = action.payload.success;
+        state.loading = false;
+      })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Ошибка входа';

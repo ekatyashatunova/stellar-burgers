@@ -26,25 +26,10 @@ const App = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
-  /*useEffect(() => {
+  useEffect(() => {
     dispatch(fetchGetIngredients());
     dispatch(getUser());
-  }, []);*/
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await Promise.all([
-          dispatch(fetchGetIngredients()).unwrap(),
-          dispatch(getUser()).unwrap()
-        ]);
-      } catch (error) {
-        console.error('Ошибка при получении данных:', error);
-      }
-    };
-
-    fetchData();
-  }, [dispatch]);
+  }, []);
 
   const handleCloseModal = () => {
     navigation(-1);
@@ -94,7 +79,7 @@ const App = () => {
         <Route
           path='/profile'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
@@ -102,7 +87,7 @@ const App = () => {
         <Route
           path='/profile/orders'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute>
               <ProfileOrders />
             </ProtectedRoute>
           }
@@ -110,7 +95,14 @@ const App = () => {
         <Route path='*' element={<NotFound404 />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
-        <Route path='/profile/orders/:number' element={<OrderInfo />} />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {background && (
@@ -134,9 +126,11 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title='' onClose={handleCloseModal}>
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute>
+                <Modal title='' onClose={handleCloseModal}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>
