@@ -19,10 +19,7 @@ export interface TUserData {
 }
 
 const initialState: TUserData = {
-  user: {
-    email: '',
-    name: ''
-  },
+  user: null,
   isAuthenticated: false,
   loading: false,
   error: null
@@ -67,15 +64,7 @@ export const logout = createAsyncThunk('user/logout', async () => {
 export const authUserSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    authChecked: (state) => {
-      state.isAuthenticated = true;
-    },
-    userLogout: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -92,6 +81,7 @@ export const authUserSlice = createSlice({
       })
       .addCase(logout.pending, (state) => {
         state.loading = true;
+        state.isAuthenticated = true;
       })
       .addCase(getUser.pending, (state) => {
         state.loading = true;
@@ -105,6 +95,7 @@ export const authUserSlice = createSlice({
       .addCase(update.fulfilled, (state, action) => {
         state.user = action.payload;
         state.loading = false;
+        state.isAuthenticated = true;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload;
@@ -117,8 +108,13 @@ export const authUserSlice = createSlice({
         state.loading = false;
       })
       .addCase(getUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.isAuthenticated = true;
+        if (action.payload.user) {
+          state.user = action.payload.user;
+          state.isAuthenticated = true;
+        } else {
+          state.user = null;
+          state.isAuthenticated = false;
+        }
         state.loading = false;
       })
       .addCase(login.rejected, (state, action) => {
@@ -135,19 +131,22 @@ export const authUserSlice = createSlice({
       })
       .addCase(logout.rejected, (state, action) => {
         state.loading = false;
+        state.isAuthenticated = true;
         state.error = action.error.message || 'Ошибка выхода';
       })
       .addCase(getUser.rejected, (state, action) => {
         state.loading = false;
+        state.isAuthenticated = false;
         state.error = action.error.message || 'Ошибка получения пользователя';
       });
   },
   selectors: {
     selectUser: (state) => state.user,
-    selectIsAuthenticated: (state) => state.isAuthenticated
+    selectIsAuthenticated: (state) => state.isAuthenticated,
+    selectIsLoading: (state) => state.loading
   }
 });
 
-export const { selectUser, selectIsAuthenticated } = authUserSlice.selectors;
-export const { authChecked, userLogout } = authUserSlice.actions;
+export const { selectUser, selectIsAuthenticated, selectIsLoading } =
+  authUserSlice.selectors;
 export const authUserReducer = authUserSlice.reducer;

@@ -28,8 +28,8 @@ export const Profile: FC = () => {
     !!formValue.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
-    dispatch(update(formValue));
     e.preventDefault();
+    dispatch(update(formValue)); //не работает кнопка сохранить, не пропадает
   };
 
   const handleCancel = (e: SyntheticEvent) => {
