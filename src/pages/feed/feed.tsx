@@ -6,8 +6,6 @@ import { fetchGetFeedsApi, selectFeed } from '../../services/slices/feed';
 
 export const Feed: FC = () => {
   const dispatch = useDispatch();
-
-  /** TODO: взять переменную из стора */
   const orders = useSelector(selectFeed);
 
   useEffect(() => {

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from '../../services/store';
 import { selectUser, update } from '../../services/slices/authUser';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
@@ -28,8 +27,8 @@ export const Profile: FC = () => {
     !!formValue.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
+    dispatch(update(formValue));
     e.preventDefault();
-    dispatch(update(formValue)); //не работает кнопка сохранить, не пропадает
   };
 
   const handleCancel = (e: SyntheticEvent) => {

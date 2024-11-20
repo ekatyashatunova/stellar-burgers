@@ -7,10 +7,14 @@ import {
   selectBun,
   selectIngredient
 } from '../../services/slices/burgerConstructor';
-import { selectLoading, newOrder } from '../../services/slices/newOrder';
+import {
+  selectLoading,
+  newOrder,
+  clearOrder
+} from '../../services/slices/newOrder';
 import { selectIsAuthenticated } from '../../services/slices/authUser';
 import { useNavigate } from 'react-router-dom';
-import { clearOrder, selectOrderByNumber } from '../../services/slices/orders';
+import { selectNewOrder } from '../../services/slices/newOrder';
 
 export const BurgerConstructor: FC = () => {
   const bun = useSelector(selectBun);
@@ -26,7 +30,7 @@ export const BurgerConstructor: FC = () => {
 
   const orderRequest = useSelector(selectLoading);
 
-  const orderModalData = useSelector(selectOrderByNumber);
+  const orderModalData = useSelector(selectNewOrder);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
