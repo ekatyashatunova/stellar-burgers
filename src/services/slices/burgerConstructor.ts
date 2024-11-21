@@ -50,11 +50,13 @@ export const burgerConstructorSlice = createSlice({
   },
   selectors: {
     selectIngredient: (state) => state.ingredients,
-    selectBun: (state) => state.bun
+    selectBun: (state) => state.bun,
+    selectBurger: (state) => state
   }
 });
 
-export const { selectIngredient, selectBun } = burgerConstructorSlice.selectors;
+export const { selectIngredient, selectBun, selectBurger } =
+  burgerConstructorSlice.selectors;
 export const constructorReducer = burgerConstructorSlice.reducer;
 export const {
   addToConstructor,
