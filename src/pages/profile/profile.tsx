@@ -11,7 +11,6 @@ import { Preloader } from '@ui';
 export const Profile: FC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const loading = useSelector(selectIsLoading);
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
@@ -52,10 +51,6 @@ export const Profile: FC = () => {
       [e.target.name]: e.target.value
     }));
   };
-
-  if (loading) {
-    return <Preloader />;
-  }
 
   return (
     <ProfileUI
