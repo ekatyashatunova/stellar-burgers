@@ -2,11 +2,9 @@ import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import {
-  selectIsLoading,
   selectUser,
   update
 } from '../../services/slices/authUser';
-import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
   const user = useSelector(selectUser);
