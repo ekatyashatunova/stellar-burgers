@@ -8,8 +8,8 @@ import {
   logoutApi,
   TLoginData,
   TRegisterData
-} from '../../utils/burger-api';
-import { setCookie, deleteCookie } from '../../utils/cookie';
+} from '../../../utils/burger-api';
+import { setCookie, deleteCookie } from '../../../utils/cookie';
 
 export interface TUserData {
   user: TUser | null;

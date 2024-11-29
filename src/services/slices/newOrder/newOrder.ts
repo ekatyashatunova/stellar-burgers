@@ -1,6 +1,6 @@
-import { TOrder } from '../../utils/types';
+import { TOrder } from '../../../utils/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { orderBurgerApi } from '../../utils/burger-api';
+import { orderBurgerApi } from '../../../utils/burger-api';
 
 export interface TNewOrder {
   order: TOrder | null;

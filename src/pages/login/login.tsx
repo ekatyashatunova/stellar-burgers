@@ -1,7 +1,7 @@
 import { FC, useState, FormEvent } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch } from '../../services/store';
-import { login } from '../../services/slices/authUser';
+import { login } from '../../services/slices/authUser/authUser';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 

@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router';
 import {
   selectIsAuthenticated,
   selectUser
-} from '../../services/slices/authUser';
+} from '../../services/slices/authUser/authUser';
 import { Preloader } from '@ui';
 
 type ProtectedRouteProps = {
