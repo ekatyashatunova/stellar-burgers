@@ -9,11 +9,11 @@ export interface TFeedData {
   loading: boolean;
 }
 
-const initialState: TFeedData = {
+export const initialState: TFeedData = {
   orders: [],
   total: 0,
   totalToday: 0,
-  loading: false
+  loading: false,
 };
 
 export const fetchGetFeedsApi = createAsyncThunk(

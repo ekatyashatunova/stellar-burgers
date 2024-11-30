@@ -7,7 +7,7 @@ export interface TIngredientsData {
   loading: boolean;
   error: string | null;
 }
-const initialState: TIngredientsData = {
+export const initialState: TIngredientsData = {
   ingredients: [],
   loading: false,
   error: null
