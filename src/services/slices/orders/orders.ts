@@ -9,7 +9,7 @@ export interface TOrderData {
   error: string | null;
 }
 
-const initialState: TOrderData = {
+export const initialState: TOrderData = {
   orders: [],
   orderByNumber: null,
   loading: false,

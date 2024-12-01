@@ -7,6 +7,7 @@ export interface TFeedData {
   total: number;
   totalToday: number;
   loading: boolean;
+  error: string | null;
 }
 
 export const initialState: TFeedData = {
@@ -14,6 +15,7 @@ export const initialState: TFeedData = {
   total: 0,
   totalToday: 0,
   loading: false,
+  error: null
 };
 
 export const fetchGetFeedsApi = createAsyncThunk(
@@ -42,8 +44,9 @@ export const feedSlice = createSlice({
           (state.total = action.payload.total),
           (state.totalToday = action.payload.totalToday);
       })
-      .addCase(fetchGetFeedsApi.rejected, (state) => {
+      .addCase(fetchGetFeedsApi.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.error.message || 'Ошибка загрузки ленты заказов';
       });
   }
 });

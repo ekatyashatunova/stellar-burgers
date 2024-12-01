@@ -8,7 +8,7 @@ export interface TNewOrder {
   error: string | null;
 }
 
-const initialState: TNewOrder = {
+export const initialState: TNewOrder = {
   order: null,
   loading: false,
   error: null

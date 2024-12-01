@@ -10,7 +10,7 @@ describe('проверка редьюсера слайса ingredients', () => {
     const expectedState = {
       ...initialState,
       loading: true,
-      error: undefined
+      error: null
     };
 
     const newState = ingredientsReducer(initialState, {
@@ -40,7 +40,7 @@ test('fulfilled', () => {
   const expectedState = {
     ...initialState,
     loading: false,
-    error: undefined,
+    error: null,
     ingredients: ingredientsAdd
   };
 
