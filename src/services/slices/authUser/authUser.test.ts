@@ -50,7 +50,8 @@ describe('проверка редьюсера слайса authUser', () => {
       ...initialState,
       loading: false,
       error: null,
-      user: mockLogin
+      user: mockLogin,
+      isAuthenticated: true
     };
 
     const newState = authUserReducer(initialState, {
@@ -103,7 +104,8 @@ describe('проверка редьюсера слайса authUser', () => {
       ...initialState,
       loading: false,
       error: null,
-      user: mockUpdate
+      user: mockUpdate,
+      isAuthenticated: true
     };
 
     const newState = authUserReducer(initialState, {
@@ -156,7 +158,8 @@ describe('проверка редьюсера слайса authUser', () => {
       ...initialState,
       loading: false,
       error: null,
-      user: mockRegister
+      user: mockRegister,
+      isAuthenticated: true
     };
 
     const newState = authUserReducer(initialState, {
@@ -170,6 +173,7 @@ describe('проверка редьюсера слайса authUser', () => {
   test('logout pending', () => {
     const expectedState = {
       ...initialState,
+      isAuthenticated: true,
       loading: true,
       error: null
     };
@@ -185,7 +189,8 @@ describe('проверка редьюсера слайса authUser', () => {
     const expectedState = {
       ...initialState,
       loading: false,
-      error: errorMessage
+      error: errorMessage,
+      isAuthenticated: true,
     };
 
     const newState = authUserReducer(initialState, {
@@ -201,7 +206,8 @@ describe('проверка редьюсера слайса authUser', () => {
       ...initialState,
       loading: false,
       error: null,
-      user: null
+      user: null,
+      isAuthenticated: false
     };
 
     const newState = authUserReducer(initialState, {
@@ -240,5 +246,26 @@ describe('проверка редьюсера слайса authUser', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  test('getUser fulfilled', () => {});
+  test('getUser fulfilled', () => {
+    const mockUser = {
+      user: {
+        email: 'ekatyashatunova@gmail.com',
+        name: 'Екатерина'
+      }
+    };
+
+    const expectedState = {
+      ...initialState,
+      loading: false,
+      error: null,
+      user: mockUser,
+      isAuthenticated: true
+    };
+
+    const newState = authUserReducer(initialState, {
+      type: getUser.fulfilled.type,
+      payload: mockUser
+    });
+    expect(newState).toEqual(expectedState);
+  });
 });
