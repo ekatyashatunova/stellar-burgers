@@ -18,7 +18,7 @@ export interface TUserData {
   error: string | null;
 }
 
-const initialState: TUserData = {
+export const initialState: TUserData = {
   user: null,
   isAuthenticated: false,
   loading: false,
