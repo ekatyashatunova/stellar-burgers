@@ -76,16 +76,16 @@ describe('проверка редьюсера слайса feed', () => {
           number: 61072
         }
       ],
-
       total: 3,
       totalToday: 3
     };
 
     const expectedState = {
-      ...initialState,
       loading: false,
       error: null,
-      orders: mockFeed
+      orders: mockFeed.orders,
+      total: mockFeed.total,
+      totalToday: mockFeed.totalToday
     };
 
     const newState = feedReducer(initialState, {

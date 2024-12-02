@@ -246,25 +246,23 @@ describe('проверка редьюсера слайса authUser', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  test('getUser fulfilled', () => {
-    const mockUser = {
-      user: {
-        email: 'ekatyashatunova@gmail.com',
-        name: 'Екатерина'
-      }
+  test('getUser  fulfilled', () => {
+    const mockUser  = {
+      email: 'ekatyashatunova@gmail.com',
+      name: 'Екатерина'
     };
-
+  
     const expectedState = {
       ...initialState,
       loading: false,
       error: null,
-      user: mockUser,
+      user: mockUser ,
       isAuthenticated: true
     };
-
+  
     const newState = authUserReducer(initialState, {
       type: getUser.fulfilled.type,
-      payload: mockUser
+      payload: mockUser  
     });
     expect(newState).toEqual(expectedState);
   });

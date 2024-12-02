@@ -97,7 +97,7 @@ describe('проверка редьюсера слайса newOrder', () => {
 
     const newState = newOrderReducer(initialState, {
       type: newOrder.fulfilled.type,
-      payload: mockNewOrder
+      payload: {order: mockNewOrder}
     });
 
     expect(newState).toEqual(expectedState);

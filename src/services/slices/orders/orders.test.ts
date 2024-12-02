@@ -147,12 +147,12 @@ describe('проверка редьюсера слайса orders', () => {
       ...initialState,
       loading: false,
       error: null,
-      orderByNumber: mockOrder
+      orderByNumber: mockOrder.orders[0]
     };
 
     const newState = orderReducer(initialState, {
       type: getOrderByNumber.fulfilled.type,
-      payload: mockOrder
+      payload:mockOrder
     });
 
     expect(newState).toEqual(expectedState);
