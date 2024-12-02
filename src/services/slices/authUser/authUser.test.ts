@@ -109,7 +109,7 @@ describe('проверка редьюсера слайса authUser', () => {
     };
 
     const newState = authUserReducer(initialState, {
-      type: login.fulfilled.type,
+      type: update.fulfilled.type,
       payload: mockUpdate
     });
 
@@ -163,7 +163,7 @@ describe('проверка редьюсера слайса authUser', () => {
     };
 
     const newState = authUserReducer(initialState, {
-      type: login.fulfilled.type,
+      type: register.fulfilled.type,
       payload: mockRegister
     });
 
@@ -235,7 +235,8 @@ describe('проверка редьюсера слайса authUser', () => {
     const expectedState = {
       ...initialState,
       loading: false,
-      error: errorMessage
+      error: errorMessage,
+      isAuthenticated: false,
     };
 
     const newState = authUserReducer(initialState, {
@@ -248,22 +249,24 @@ describe('проверка редьюсера слайса authUser', () => {
 
   test('getUser  fulfilled', () => {
     const mockUser  = {
-      email: 'ekatyashatunova@gmail.com',
-      name: 'Екатерина'
+      user: { 
+        email: 'ekatyashatunova@gmail.com',
+        name: 'Екатерина'
+    }
     };
-  
+
     const expectedState = {
-      ...initialState,
-      loading: false,
-      error: null,
-      user: mockUser ,
-      isAuthenticated: true
+        loading: false,
+        error: null,
+        user: mockUser.user , 
+        isAuthenticated: true
     };
-  
+
     const newState = authUserReducer(initialState, {
-      type: getUser.fulfilled.type,
-      payload: mockUser  
+        type: getUser.fulfilled.type,
+        payload: mockUser  
     });
+
     expect(newState).toEqual(expectedState);
-  });
+});
 });
