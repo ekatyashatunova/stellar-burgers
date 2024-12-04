@@ -4,6 +4,7 @@ import {
   orderReducer,
   getOrderByNumber
 } from './orders';
+import { expect, describe, test } from '@jest/globals';
 
 describe('проверка редьюсера слайса orders', () => {
   test('getOrders pending', () => {

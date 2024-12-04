@@ -7,6 +7,7 @@ import {
   logout,
   getUser
 } from './authUser';
+import { expect, describe, test } from '@jest/globals';
 
 describe('проверка редьюсера слайса authUser', () => {
   test('login pending', () => {
@@ -190,7 +191,7 @@ describe('проверка редьюсера слайса authUser', () => {
       ...initialState,
       loading: false,
       error: errorMessage,
-      isAuthenticated: true,
+      isAuthenticated: true
     };
 
     const newState = authUserReducer(initialState, {
@@ -236,7 +237,7 @@ describe('проверка редьюсера слайса authUser', () => {
       ...initialState,
       loading: false,
       error: errorMessage,
-      isAuthenticated: false,
+      isAuthenticated: false
     };
 
     const newState = authUserReducer(initialState, {
@@ -248,25 +249,25 @@ describe('проверка редьюсера слайса authUser', () => {
   });
 
   test('getUser  fulfilled', () => {
-    const mockUser  = {
-      user: { 
+    const mockUser = {
+      user: {
         email: 'ekatyashatunova@gmail.com',
         name: 'Екатерина'
-    }
+      }
     };
 
     const expectedState = {
-        loading: false,
-        error: null,
-        user: mockUser.user , 
-        isAuthenticated: true
+      loading: false,
+      error: null,
+      user: mockUser.user,
+      isAuthenticated: true
     };
 
     const newState = authUserReducer(initialState, {
-        type: getUser.fulfilled.type,
-        payload: mockUser  
+      type: getUser.fulfilled.type,
+      payload: mockUser
     });
 
     expect(newState).toEqual(expectedState);
-});
+  });
 });

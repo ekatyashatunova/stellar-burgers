@@ -1,3 +1,4 @@
+
 import {
   constructorReducer,
   addToConstructor,
@@ -7,6 +8,7 @@ import {
   initialState
 } from './burgerConstructor';
 import { ingredientsAdd } from './burgerMoks';
+import { expect, describe, test } from '@jest/globals';
 
 describe('проверка редьюсера слайса burgerConstructor', () => {
   test('addToConstructor', () => {

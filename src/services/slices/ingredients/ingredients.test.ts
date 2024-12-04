@@ -4,6 +4,7 @@ import {
   fetchGetIngredients
 } from './ingredients';
 import { ingredientsAdd } from '../burgerConstructor/burgerMoks';
+import { expect, describe, test } from '@jest/globals';
 
 describe('проверка редьюсера слайса ingredients', () => {
   test('pending', () => {

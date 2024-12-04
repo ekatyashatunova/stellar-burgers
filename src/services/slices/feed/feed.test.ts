@@ -1,5 +1,6 @@
 import { initialState } from './feed';
 import { feedReducer, fetchGetFeedsApi } from './feed';
+import { expect, describe, test } from '@jest/globals';
 
 describe('проверка редьюсера слайса feed', () => {
   test('pending', () => {

@@ -1,4 +1,5 @@
 import { initialState, newOrder, newOrderReducer } from './newOrder';
+import { expect, describe, test } from '@jest/globals';
 
 describe('проверка редьюсера слайса newOrder', () => {
   test('pending', () => {
