@@ -6,15 +6,15 @@ import {
   resetConstructor,
   selectBun,
   selectIngredient
-} from '../../services/slices/burgerConstructor';
+} from '../../services/slices/burgerConstructor/burgerConstructor';
 import {
   selectLoading,
   newOrder,
   clearOrder
-} from '../../services/slices/newOrder';
-import { selectIsAuthenticated } from '../../services/slices/authUser';
+} from '../../services/slices/newOrder/newOrder';
+import { selectIsAuthenticated } from '../../services/slices/authUser/authUser';
 import { useNavigate } from 'react-router-dom';
-import { selectNewOrder } from '../../services/slices/newOrder';
+import { selectNewOrder } from '../../services/slices/newOrder/newOrder';
 
 export const BurgerConstructor: FC = () => {
   const bun = useSelector(selectBun);

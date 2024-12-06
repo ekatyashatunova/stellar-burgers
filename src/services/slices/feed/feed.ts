@@ -1,5 +1,5 @@
-import { TOrder } from '../../utils/types';
-import { getFeedsApi } from '../../utils/burger-api';
+import { TOrder } from '../../../utils/types';
+import { getFeedsApi } from '../../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface TFeedData {
@@ -7,13 +7,15 @@ export interface TFeedData {
   total: number;
   totalToday: number;
   loading: boolean;
+  error: string | null;
 }
 
-const initialState: TFeedData = {
+export const initialState: TFeedData = {
   orders: [],
   total: 0,
   totalToday: 0,
-  loading: false
+  loading: false,
+  error: null
 };
 
 export const fetchGetFeedsApi = createAsyncThunk(
@@ -42,8 +44,9 @@ export const feedSlice = createSlice({
           (state.total = action.payload.total),
           (state.totalToday = action.payload.totalToday);
       })
-      .addCase(fetchGetFeedsApi.rejected, (state) => {
+      .addCase(fetchGetFeedsApi.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.error.message || 'Ошибка загрузки ленты заказов';
       });
   }
 });

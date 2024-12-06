@@ -8,8 +8,8 @@ import {
   logoutApi,
   TLoginData,
   TRegisterData
-} from '../../utils/burger-api';
-import { setCookie, deleteCookie } from '../../utils/cookie';
+} from '../../../utils/burger-api';
+import { setCookie, deleteCookie } from '../../../utils/cookie';
 
 export interface TUserData {
   user: TUser | null;
@@ -18,7 +18,7 @@ export interface TUserData {
   error: string | null;
 }
 
-const initialState: TUserData = {
+export const initialState: TUserData = {
   user: null,
   isAuthenticated: false,
   loading: false,
